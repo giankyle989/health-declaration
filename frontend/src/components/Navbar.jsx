@@ -9,7 +9,7 @@ const Navbar = () => {
         <h1 className="font-bold">Health Declaration</h1>
         <div>
           <Link to="/" className="hover:font-bold pr-2">Home</Link>
-          <Link to="/add" className="hover:font-bold">
+          <Link to="/create" className="hover:font-bold">
             Add New
           </Link>
         </div>

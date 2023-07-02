@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import axios from 'axios';
 
 class Create extends React.Component {
 
@@ -24,7 +25,20 @@ class Create extends React.Component {
 
   onSubmit(e){
     e.preventDefault()
-    console.log(this.state)
+
+    const health = {
+      fullname: this.state.fullname,
+      email: this.state.email,
+      temperature: this.state.temperature,
+      phonenumber: this.state.phonenumber
+    }
+
+
+    axios.post('http://localhost:5000/health/add', health)
+              .then(res => console.log(res.data))
+              .catch(err => console.log("Error:" + err))
+
+    
   }
 
   render(){

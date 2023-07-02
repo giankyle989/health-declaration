@@ -25,7 +25,6 @@ connection.once('open', ()=> {
 });
 
 app.use('/health', HealthRouter);
-app.use ('/users', UserRouter);
 
 
 app.listen(port, ()=> {

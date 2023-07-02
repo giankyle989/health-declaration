@@ -10,7 +10,7 @@ function App() {
       <Navbar/>
       <Routes>
         <Route path="/" element={<Home/>}/>
-        <Route path="/add" element={<Create/>} />
+        <Route path="/create" element={<Create/>} />
 
       </Routes>
     </>
