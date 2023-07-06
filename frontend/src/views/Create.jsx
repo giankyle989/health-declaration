@@ -45,25 +45,24 @@ class Create extends React.Component {
       return (
     <>
       <div>Create List</div>
-        <form onSubmit={this.onSubmit}>
-          <div>
-            <label>Full Name</label>
-            <input type="text" onChange={this.onValueChange} data-name="fullname" required/>
-          </div>
-          <div>
-            <label>Email</label>
-            <input type="email" onChange={this.onValueChange} data-name="email" required/>
-          </div>
-          <div>
-            <label>Temperature</label>
-            <input type="number" step="0.1" onChange={this.onValueChange} data-name="temperature" required/>
-          </div>
-          <div>
-            <label>Phone Number</label>
-            <input type="tel" onChange={this.onValueChange} data-name="phonenumber" required/>
-          </div>
-          <button className='bg-sky-800 p-2' type='submit'>Submit</button>
-       </form>
+      <div className='flex justify-center items-center bg-slate-300 p-4 mx-10'>
+        <form className='flex flex-col items-center gap-2' onSubmit={this.onSubmit}>
+            <div>
+              <input className='p-2 border-2 border-black active:outline-none' type="text" onChange={this.onValueChange} data-name="fullname" placeholder='Fullname' required/>
+            </div>
+            <div>
+              <input className='p-2 border-2 border-black active:outline-none' type="email" onChange={this.onValueChange} data-name="email" placeholder='Email' required/>
+            </div>
+            <div>
+              <input className='p-2 border-2 border-black active:outline-none' type="number" step="0.1" onChange={this.onValueChange} data-name="temperature" placeholder='Temperature' required/>
+            </div>
+            <div>
+              <input className='p-2 border-2 border-black active:outline-none' type="tel" onChange={this.onValueChange} data-name="phonenumber" placeholder='Phone Number' required/>
+            </div>
+            <button className='bg-sky-500 p-2' type='submit'>Submit</button>
+        </form>
+      </div>
+        
     </>
   )
   }
