@@ -1,72 +1,49 @@
-import React from 'react';
-import axios from 'axios';
+import React, { useState } from 'react'
+import Navbar from '../components/Navbar'
+import axios from 'axios'
 
-class Create extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      fullname : '',
-      email : '',
-      temperature : '',
-      phonenumber : ''
-    }
-
-    this.onValueChange = this.onValueChange.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
-  }
+const Create = () => {
+  const [fullname, setFullName] = useState('')
+  const [temperature, setTemperature] = useState('')
+  const [email, setEmail] = useState('')
+  const [phonenumber, setPhoneNumber] = useState('')
 
 
-  onValueChange(e){
-    this.setState({
-      [e.target.dataset.name] : e.target.value
-    })
-  }
 
-  onSubmit(e){
+  const handleSubmit = (e) => {
     e.preventDefault()
 
     const health = {
-      fullname: this.state.fullname,
-      email: this.state.email,
-      temperature: this.state.temperature,
-      phonenumber: this.state.phonenumber
+      fullname,
+      temperature,
+      email,
+      phonenumber
     }
 
-
     axios.post('http://localhost:5000/health/add', health)
-              .then(res => console.log(res.data))
-              .catch(err => console.log("Error:" + err))
+          .then((res) => {
+            console.log(res.data);
+            setFullName('');
+            setTemperature('');
+            setEmail('');
+            setPhoneNumber('');
+          })
+          .catch(err => console.log("Error: " + err))
 
-    
   }
-
-  render(){
-      return (
+  return (
     <>
-      <div>Create List</div>
-      <div className='flex justify-center items-center bg-slate-300 p-4 mx-10'>
-        <form className='flex flex-col items-center gap-2' onSubmit={this.onSubmit}>
-            <div>
-              <input className='p-2 border-2 border-black active:outline-none' type="text" onChange={this.onValueChange} data-name="fullname" placeholder='Fullname' required/>
-            </div>
-            <div>
-              <input className='p-2 border-2 border-black active:outline-none' type="email" onChange={this.onValueChange} data-name="email" placeholder='Email' required/>
-            </div>
-            <div>
-              <input className='p-2 border-2 border-black active:outline-none' type="number" step="0.1" onChange={this.onValueChange} data-name="temperature" placeholder='Temperature' required/>
-            </div>
-            <div>
-              <input className='p-2 border-2 border-black active:outline-none' type="tel" onChange={this.onValueChange} data-name="phonenumber" placeholder='Phone Number' required/>
-            </div>
-            <button className='bg-sky-500 p-2' type='submit'>Submit</button>
-        </form>
-      </div>
-        
+    <Navbar/>
+      <form className='m-4' onSubmit={handleSubmit}>
+        <input className='border-2 border-black' type="text" value={fullname} onChange={(e) => setFullName(e.target.value)} placeholder='Full Name'/>
+        <input className='border-2 border-black' type="number" value={temperature} onChange={(e) => setTemperature(e.target.value)} step="0.1"  placeholder='Temperature'/>
+        <input className='border-2 border-black' type="email" value={email} onChange={(e) => setEmail(e.target.value)}  placeholder='Email'/>
+        <input className='border-2 border-black' type="tel" value={phonenumber} onChange={(e) => setPhoneNumber(e.target.value)}  placeholder='Phone Number'/>
+        <button type='submit' className='ml-4 border-2 border-blue-600'>Submit</button>
+      </form>
+    
     </>
   )
-  }
-
 }
 
 export default Create
