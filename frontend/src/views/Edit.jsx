@@ -1,33 +1,40 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import axios from 'axios'
+import { useParams } from 'react-router-dom'
 
-const Create = () => {
+const Edit = () => {
+  const { id } = useParams()
   const [fullname, setFullName] = useState('')
   const [temperature, setTemperature] = useState('')
   const [email, setEmail] = useState('')
   const [phonenumber, setPhoneNumber] = useState('')
 
-
-
+  useEffect(() => {
+    axios.get(`http://localhost:5000/health/${id}`)
+          .then((res) => {
+            setFullName(res.data.fullname)
+            setTemperature(res.data.temperature)
+            setEmail(res.data.email)
+            setPhoneNumber(res.data.phonenumber)
+          })
+          .catch((err)  => console.log(err))
+  }, [id])
+  
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    const health = {
+    const editHealth = {
       fullname,
       temperature,
       email,
       phonenumber
     }
 
-    axios.post('http://localhost:5000/health/add', health)
+    axios.put(`http://localhost:5000/health/${id}`, editHealth)
           .then((res) => {
             console.log(res.data);
-            setFullName('');
-            setTemperature('');
-            setEmail('');
-            setPhoneNumber('');
-            window.location = '/'
+            window.location = "/"
           })
           .catch(err => console.log("Error: " + err))
 
@@ -35,7 +42,7 @@ const Create = () => {
   return (
     <>
     <Navbar/>
-      <h1>Create Information</h1>
+    <h1>Edit Information</h1>
       <form className='m-4' onSubmit={handleSubmit}>
         <input className='border-2 border-black' type="text" value={fullname} onChange={(e) => setFullName(e.target.value)} placeholder='Full Name'/>
         <input className='border-2 border-black' type="number" value={temperature} onChange={(e) => setTemperature(e.target.value)} step="0.1"  placeholder='Temperature'/>
@@ -48,4 +55,4 @@ const Create = () => {
   )
 }
 
-export default Create
+export default Edit

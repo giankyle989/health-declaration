@@ -24,6 +24,7 @@ connection.once('open', ()=> {
     console.log("MongoDB database connection is established.");
 });
 
+// Model Routes
 app.use('/health', HealthRouter);
 
 
