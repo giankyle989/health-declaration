@@ -43,7 +43,7 @@ const Create = () => {
         <input className='border-2 border-black' type="tel" value={phonenumber} onChange={(e) => setPhoneNumber(e.target.value)}  placeholder='Phone Number'/>
         <button type='submit' className='ml-4 border-2 border-blue-600'>Submit</button>
       </form>
-    
+
     </>
   )
 }

@@ -1,9 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const passport = require('passport')
 
 const HealthRouter = require('./routes/health');
-const UserRouter = require('./routes/user')
+const UserRouter = require('./routes/userAuth')
 
 require('dotenv').config();
 
@@ -26,7 +27,8 @@ connection.once('open', ()=> {
 
 // Model Routes
 app.use('/health', HealthRouter);
-
+app.use('/user', UserRouter)
+app.use(passport.initialize())
 
 app.listen(port, ()=> {
     console.log(`Server is running in port : ${port}`);

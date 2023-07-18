@@ -14,7 +14,8 @@ const HealthList = () => {
   }, []);
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:5000/health/${id}`)
+    axios
+      .delete(`http://localhost:5000/health/${id}`)
       .then((res) => {
         console.log(res.data);
         window.location.reload();
@@ -27,27 +28,30 @@ const HealthList = () => {
       <div className="overlap-x-hidden w-screen">
         <Navbar />
         <div>Health List</div>
-        <div className="w-screen pt-10 mx-4">
-          <table className="w-full overflow-x-hidden text-xs text-left mx-auto">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg break-all">
+          <table className="overflow-x-hidden text-xs text-center mx-auto">
             <thead>
-              <tr>
-                <th>Full Name</th>
-                <th>Temperature</th>
-                <th>Email</th>
-                <th>Phone Number</th>
+              <tr className="border border-black">
+                <th className="border border-black">Full Name</th>
+                <th className="border border-black">Temperature</th>
+                <th className="border border-black">Email</th>
+                <th className="border border-black">Phone Number</th>
+                <th className="border border-black">Actions</th>
               </tr>
             </thead>
             <tbody>
               {healths.map((health) => (
-                <tr key={health._id}>
-                  <td className="px-4 py-6">{health.fullname}</td>
-                  <td className="px-4 py-6">{health.temperature}</td>
-                  <td className="px-4 py-6">{health.email}</td>
-                  <td className="px-4 py-6">{health.phonenumber}</td>
+                <tr className="border border-black" key={health._id}>
+                  <td className="px-2 py-4 border border-slate-600">{health.fullname}</td>
+                  <td className="px-2 py-4 border border-slate-600">{health.temperature}</td>
+                  <td className="px-2 py-4 border border-slate-600">{health.email}</td>
+                  <td className="px-2 py-4 border border-slate-600">{health.phonenumber}</td>
                   <td className="flex flex-col">
-                    <Link to={`/edit/${health._id}`} className="bg-green-300">Edit</Link>
+                    <Link to={`/edit/${health._id}`} className="bg-green-300 p-2">
+                      Edit
+                    </Link>
                     <a
-                      className="bg-red-300"
+                      className="bg-red-300 p-2"
                       href="#"
                       onClick={() => handleDelete(health._id)}
                     >
