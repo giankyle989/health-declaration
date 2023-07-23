@@ -11,14 +11,14 @@ const Login = () => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:5000/user/login", { email, password })
+      .post("http://localhost:5000/api/user/login", { email, password })
       .then((res) => {
         console.log(res.data);
+        localStorage.setItem("token", JSON.stringify(res.data));
         navigate("/");
       })
       .catch((err) => console.log("Error: " + err));
   };
-
   return (
     <>
       <div className="h-screen flex justify-center items-center">

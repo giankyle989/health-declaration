@@ -33,6 +33,7 @@ const HealthList = () => {
             <thead>
               <tr className="border border-black">
                 <th className="border border-black">Full Name</th>
+                <th className="border border-black">User</th>
                 <th className="border border-black">Temperature</th>
                 <th className="border border-black">Email</th>
                 <th className="border border-black">Phone Number</th>

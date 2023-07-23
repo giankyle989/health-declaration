@@ -1,10 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const passport = require('passport')
+const session = require('express-session')
 
 const HealthRouter = require('./routes/health');
-const UserRouter = require('./routes/userAuth')
+const UserRouter = require('./routes/userRoute')
 
 require('dotenv').config();
 
@@ -25,10 +25,12 @@ connection.once('open', ()=> {
     console.log("MongoDB database connection is established.");
 });
 
+
+
 // Model Routes
 app.use('/health', HealthRouter);
-app.use('/user', UserRouter)
-app.use(passport.initialize())
+app.use('/api/user', UserRouter)
+
 
 app.listen(port, ()=> {
     console.log(`Server is running in port : ${port}`);

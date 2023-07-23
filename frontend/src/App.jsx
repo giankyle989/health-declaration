@@ -6,16 +6,25 @@ import Edit from "./views/Edit";
 import Login from "./views/Login";
 import Register from "./views/Register";
 
+
 function App() {
   return (
     <>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register/>}/>
+      <Routes>
+        {/**Guest Layout */}
+
           <Route path="/login" element={<Login/>}/>
-          <Route path={`/edit/:id`} element={<Edit/>}/>
+          <Route path="/register" element={<Register/>}/>
+
+
+        {/**Member Layout */}
+
+          <Route path={`/edit/:id`} element={<Edit />} />
           <Route path="/create" element={<Create />} />
-        </Routes>
+          <Route path="/" element={<Home />} />
+
+
+      </Routes>
     </>
   );
 }

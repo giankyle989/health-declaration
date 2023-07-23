@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [fullname, setFullName] = useState("");
   const [password, setPassword] = useState("");
@@ -16,12 +18,13 @@ const Register = () => {
     };
 
     axios
-      .post("http://localhost:5000/user/register", user)
+      .post("http://localhost:5000/api/user/register", user)
       .then((res) => {
         console.log(res.data);
         setEmail("");
         setFullName("");
         setPassword("");
+        navigate('/login')
       })
       .catch((err) => console.log("Error: " + err));
   };
