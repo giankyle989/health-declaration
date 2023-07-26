@@ -3,7 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const session = require('express-session')
 
-const HealthRouter = require('./routes/health');
+const HealthRouter = require('./routes/healthRoute');
 const UserRouter = require('./routes/userRoute')
 
 require('dotenv').config();

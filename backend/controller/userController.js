@@ -5,9 +5,13 @@ const User = require("../models/user.model");
 
 //Get user data
 const getUser = asyncHandler(async (req, res) => {
-  User.find()
-    .then((user) => res.json(user))
-    .catch((err) => res.status(400).json("Error: " + err));
+
+  const {_id, email, fullname} = await User.findById(req.user.id)
+  res.status(201).json({
+    id:_id,
+    email,
+    fullname
+  })
 });
 
 //Generate token
