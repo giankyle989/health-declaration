@@ -9,9 +9,24 @@ const Edit = () => {
   const [temperature, setTemperature] = useState('')
   const [email, setEmail] = useState('')
   const [phonenumber, setPhoneNumber] = useState('')
+      //Get token object
+      const tokenObject = JSON.parse(localStorage.getItem('token'));
+
+      //Get token string only
+      const token = tokenObject.token;
+    
+      const headerToken =  {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/health/${id}`)
+
+
+
+    axios.get(`http://localhost:5000/health/${id}`, headerToken)
           .then((res) => {
             setFullName(res.data.fullname)
             setTemperature(res.data.temperature)
@@ -31,7 +46,7 @@ const Edit = () => {
       phonenumber
     }
 
-    axios.put(`http://localhost:5000/health/${id}`, editHealth)
+    axios.put(`http://localhost:5000/health/${id}`, editHealth, headerToken)
           .then((res) => {
             console.log(res.data);
             window.location = "/"

@@ -8,8 +8,10 @@ import Register from "./views/Register";
 
 
 function App() {
+
   return (
     <>
+
       <Routes>
         {/**Guest Layout */}
 
@@ -22,7 +24,6 @@ function App() {
           <Route path={`/edit/:id`} element={<Edit />} />
           <Route path="/create" element={<Create />} />
           <Route path="/" element={<Home />} />
-
 
       </Routes>
     </>

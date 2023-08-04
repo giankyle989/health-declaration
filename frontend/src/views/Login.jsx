@@ -13,7 +13,6 @@ const Login = () => {
     axios
       .post("http://localhost:5000/api/user/login", { email, password })
       .then((res) => {
-        console.log(res.data);
         localStorage.setItem("token", JSON.stringify(res.data));
         navigate("/");
       })

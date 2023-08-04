@@ -3,19 +3,31 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+
 const HealthList = () => {
   const [healths, setHealths] = useState([]);
+    //Get token object
+    const tokenObject = JSON.parse(localStorage.getItem('token'));
 
+    //Get token string only
+    const token = tokenObject.token;
+  
+    const headerToken =  {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/health/")
-      .then((res) => setHealths(res.data))
-      .catch((err) => console.log(err));
+    axios.get("http://localhost:5000/health", headerToken)
+    .then((res) => {
+      setHealths(res.data);
+    })
+    .catch((err) => console.log(err));
   }, []);
 
   const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:5000/health/${id}`)
+      .delete(`http://localhost:5000/health/${id}`, headerToken)
       .then((res) => {
         console.log(res.data);
         window.location.reload();

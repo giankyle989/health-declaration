@@ -7,6 +7,11 @@ const getHealth = asyncHandler(async (req, res) => {
         .then((health) => res.json(health))
         .catch((err) => res.status(400).json("Error: " + err))
 })
+const healthDetail = asyncHandler(async (req,res) => {
+    Health.findById(req.params.id)
+    .then(health => res.json(health))
+    .catch(err => res.status(400).json('Error: '+ err));
+})
 
 
 const addHealth = asyncHandler(async  (req, res) => {
@@ -54,34 +59,41 @@ const deleteHealth = asyncHandler(async (req,res) => {
     .catch((err) => res.status(400).json("Error :" + err));
 })
 
-const updateHealth = asyncHandler(async (req,res) => {
-  const user = await User.findById(req.user.id)
+const updateHealth = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user.id);
 
-  if(!user){
-    res.status(401)
-    throw new Error("User not found")
+  if (!user) {
+    res.status(401);
+    throw new Error("User not found");
   }
-  
 
-  
-      Health.findById(req.params.id)
-        .then((health) => {
-          
-          if(health.user.toString() !== user.id){
-            res.status(401)
-            throw new Error("User not authorized")
-          }
-          health.fullname = req.body.fullname;
-          health.temperature = req.body.temperature;
-          health.email = req.body.email;
-          health.phonenumber = req.body.phonenumber;
+  const healthId = req.params.id;
+
+  Health.findById(healthId)
+    .then((health) => {
+      if (!health) {
+        res.status(404);
+        throw new Error("Health record not found");
+      }
+
+      if (health.user.toString() !== user.id) {
+        res.status(401);
+        throw new Error("User not authorized");
+      }
+
+      const { fullname, temperature, email, phonenumber } = req.body;
+
+      health.fullname = fullname;
+      health.temperature = temperature;
+      health.email = email;
+      health.phonenumber = phonenumber;
 
       health
         .save()
-        .then((health) => res.json("Record was updated"))
-        .catch((err) => res.status(400).json("Error :" + err));
+        .then(() => res.json("Record was updated"))
+        .catch((err) => res.status(400).json("Error: " + err));
     })
-    .catch((err) => res.status(400).json("Error :" + err));
-})
+    .catch((err) => res.status(400).json("Error: " + err));
+});
 
-module.exports = {getHealth, addHealth, updateHealth, deleteHealth}
+module.exports = {getHealth, addHealth, updateHealth, deleteHealth, healthDetail}

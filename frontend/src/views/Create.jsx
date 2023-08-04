@@ -2,36 +2,46 @@ import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
 import axios from 'axios'
 
+
 const Create = () => {
   const [fullname, setFullName] = useState('')
   const [temperature, setTemperature] = useState('')
   const [email, setEmail] = useState('')
   const [phonenumber, setPhoneNumber] = useState('')
+      //Get token object
+      const tokenObject = JSON.parse(localStorage.getItem('token'));
 
-
+      //Get token string only
+      const token = tokenObject.token;
+    
+      const headerToken =  {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-
+    e.preventDefault();
+  
     const health = {
       fullname,
       temperature,
       email,
-      phonenumber
-    }
-
-    axios.post('http://localhost:5000/health/add', health)
-          .then((res) => {
-            console.log(res.data);
-            setFullName('');
-            setTemperature('');
-            setEmail('');
-            setPhoneNumber('');
-            window.location = '/'
-          })
-          .catch(err => console.log("Error: " + err))
-
-  }
+      phonenumber,
+    };
+  
+    axios
+      .post("http://localhost:5000/health/add", health, headerToken)
+      .then((res) => {
+        console.log(res.data);
+        setFullName("");
+        setTemperature("");
+        setEmail("");
+        setPhoneNumber("");
+        window.location = "/";
+      })
+      .catch((err) => console.log("Error: " + err));
+  };
   return (
     <>
     <Navbar/>
